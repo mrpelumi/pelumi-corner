@@ -32,7 +32,7 @@ const AboutPage = () => {
         </span>
       </div>
       <div className='w-full p-2 flex rounded-md'>
-         <img className='h-56 lg:h-80 object-cover w-full rounded-md' src={myImg} alt="About Me Image" />
+         <img className='h-56 lg:h-80 object-cover object-top w-full rounded-md' src={myImg} alt="About Me Image" />
       </div>
     </div>
     {/* Contact Card */}
