@@ -51,7 +51,7 @@ const SingleArticle = () => {
       <div className="rounded-md opacity-90 pb-10">
         <img className="rounded-md h-72 object-cover w-full" src={imgUrl} alt="Article Image" />
       </div>
-      <div className="flex flex-col gap-4 text-lg text-gray-700 p-2 pb-5">
+      <div className="flex flex-col gap-4 text-lg text-gray-700 text-justify p-2 pb-5">
         {articleItem.content ? parse(articleItem.content) : null}
       </div>
       {/* contacr page */}
