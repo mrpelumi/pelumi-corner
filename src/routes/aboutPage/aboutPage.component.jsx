@@ -27,7 +27,7 @@ const AboutPage = () => {
     <div className="flex flex-col-reverse shadow items-center rounded-md ">
       <div className="w-full flex flex-col gap-3 p-2 pt-6">
         <h3 className='text-3xl font-bold text-gray-800'>About Me</h3>
-        <span className='text-lg text-gray-500 pb-3'>
+        <span className='text-lg text-gray-500 text-justify pb-3'>
           {about.description}
         </span>
       </div>
