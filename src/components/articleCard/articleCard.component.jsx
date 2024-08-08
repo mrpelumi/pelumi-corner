@@ -34,7 +34,7 @@ const ArticleCard = ({item}) => {
         </div>
       </div>
       <div className="w-2/5 rounded-md flex opacity-80">
-        <img className='h-36 object-cover object-center rounded-md w-full hover:scale-95 transition-transform' src={imgUrl} alt="An image" />
+        <img className='h-36 object-cover object-center rounded-md w-full hover:scale-95 transition-transform' src={imgUrl} alt="Article Image" loading='lazy' />
       </div>
     </div>
   )

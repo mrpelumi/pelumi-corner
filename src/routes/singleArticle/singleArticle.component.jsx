@@ -49,7 +49,7 @@ const SingleArticle = () => {
         </span>
       </div>
       <div className="rounded-md opacity-90 pb-10">
-        <img className="rounded-md h-80 object-top object-fill w-full" src={imgUrl} alt="Article Image" />
+        <img className="rounded-md h-80 object-top object-fill w-full" src={imgUrl} alt="Article Image" loading="lazy" />
       </div>
       <div className="flex flex-col gap-4 text-lg text-gray-700 text-justify p-2 pb-5">
         {articleItem.content ? parse(articleItem.content) : null}

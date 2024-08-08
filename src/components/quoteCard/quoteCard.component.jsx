@@ -3,7 +3,7 @@ import { getDocQuote } from "../../utils/firebase";
 import sample from "lodash/sample";
 
 const QuoteCard = () => {
-  const [quote, setQuote] = useState({});
+  const [quote, setQuote] = useState({quote: "Quote Loading...", quoteAuthor:"Anonymous"});
   useEffect(() => {
     const arrQuote = [];
     const quotes = async () =>{

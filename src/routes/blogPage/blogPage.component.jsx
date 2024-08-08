@@ -60,7 +60,7 @@ const BlogPage = () => {
         <span>{firstArticle && firstArticle.preamble}</span>
       </div>
       <div className="flex flex-col w-full md:w-4/5 xl:w-4/6 opacity-85">
-        <img className="h-56 md:h-72 rounded-md object-cover object-center hover:scale-95 transition-transform" src={imgUrl} alt='The image will be placed here'/>
+        <img className="h-56 md:h-72 rounded-md object-cover object-center hover:scale-95 transition-transform" src={imgUrl} alt='Header Image' loading='lazy' />
         <span className="text-center text-gray-400 italic text-sm">{`Image Name: ${firstArticle && firstArticle.imgName}`}</span>
       </div> 
     </div>
