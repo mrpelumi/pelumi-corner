@@ -14,6 +14,9 @@ import ContactCard from '../../components/contactCard/contactCard.component';
 import Footer from '../../components/footer/footer.component';
 import QuoteCard  from '../../components/quoteCard/quoteCard.component';
 
+import { Avatar, AvatarFallback, AvatarImage } from '../../components/ui/avatar';
+import { Skeleton } from '../../components/ui/skeleton';
+
 // working with data
 const BlogPage = () => {
   const dispatch = useDispatch();
@@ -24,6 +27,7 @@ const BlogPage = () => {
   const articleList = useSelector(selectArticleFilteredList);
 
   const filteredArticleList = articleList.slice(0,articleItems);
+  console.log(filteredArticleList)
 
   useEffect(() => {
     const articleList = [];
@@ -54,24 +58,29 @@ const BlogPage = () => {
     <div className='flex flex-col items-center h-full w-full p-4 gap-5'>
     <div className="flex flex-col items-center p-3 gap-3 shadow bg-white rounded-md md:w-4/5 xl:w-3/5 h-3/5">
       <div className="md:w-4/5 xl:w-4/6 lg:p-2 p-1">
-        <h2 className="lg:text-2xl md:text-xl text-lg font-bold  lg:font-semibold text-slate-800 text-center hover:underline hover:underline-offset-4 hover:cursor-pointer" onClick={onClickHandler}>{firstArticle && firstArticle.title}</h2>
+        <h2 className="lg:text-2xl md:text-xl text-lg font-bold  lg:font-semibold text-slate-800 text-center hover:underline hover:underline-offset-4 hover:cursor-pointer" onClick={onClickHandler}>{firstArticle && firstArticle?.title}</h2>
       </div>
       <div className="xl:w-4/6 md:w-4/5 lg:p-2 p-1 text-gray-600">
-        <span>{firstArticle && firstArticle.preamble}</span>
+        <span>{firstArticle && firstArticle?.preamble}</span>
       </div>
       <div className="flex flex-col w-full md:w-4/5 xl:w-4/6 opacity-85">
-        <img className="h-56 md:h-72 rounded-md object-cover object-center hover:scale-95 transition-transform" src={imgUrl} alt='Header Image' loading='lazy' />
-        <span className="text-center text-gray-400 italic text-sm">{`Image Name: ${firstArticle && firstArticle.imgName}`}</span>
+        {imgUrl ? <img className="h-56 md:h-72 rounded-md object-cover object-center hover:scale-95 transition-transform" src={imgUrl} alt='Header Image' loading='lazy' /> : <Skeleton className="h-56 md:h-72 rounded-md" />}
+        <span className="text-center text-gray-400 italic text-sm">{`Image Name: ${firstArticle ? firstArticle?.imgName : "Loading..."}`}</span>
       </div> 
     </div>
     <QuoteCard />
     <div className='md:w-4/5 xl:w-3/5 flex flex-col gap-6 items-center p-4'>
       <span className='text-xl text-gray-800 decoration-gray-500'>Recent Publications</span>
-      {filteredArticleList.map((item, idx) => {
+      {filteredArticleList.length !== 0 ? filteredArticleList?.map((item, idx) => {
         return (
           <ArticleCard key={idx} item={item} />
         )
-      })}
+      }) : 
+      <div className='flex flex-col items-center gap-6 w-full'> 
+        <Skeleton className="h-40 md:w-full lg:w-4/5" />
+        <Skeleton className="h-40 md:w-full lg:w-4/5"  />
+        <Skeleton className="h-40 md:w-full lg:w-4/5"  />
+      </div>}
       
     </div>
     <div className='p-2 w-3/5 md:w-2/5 lg:w-1/5 flex justify-center'>

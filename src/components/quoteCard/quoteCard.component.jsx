@@ -20,8 +20,8 @@ const QuoteCard = () => {
         <span className='text-xl'>Quote of the Week</span>
       </div>
       <div className='flex flex-col gap-3 w-4/5'>
-        <span className='text-lg xl:text-xl'>{`"${quote.quote}"`}</span>
-        <span className='text-right text-base'> - {quote.quoteAuthor}</span>
+        <span className='text-lg xl:text-xl'>{quote ? `"${quote?.quote}"` : "Patience is not the ability to wait, but the ability to keep a good attitude while waiting"}</span>
+        <span className='text-right text-base'> - {quote ? quote?.quoteAuthor : "Anon"}</span>
       </div>
     </div>
   )

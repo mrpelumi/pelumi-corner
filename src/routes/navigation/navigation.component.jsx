@@ -3,12 +3,19 @@ import { Link } from "react-router-dom";
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import logoImg from '../../assets/pelumi-corner.png';
 import './navigation.styles.scss';
+import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
+  const navigate = useNavigate();
+
+  const onClickHandler = () => {
+    navigate("/")
+  }
+
   return(
     <div className="flex flex-col items-center gap-12 main-container">
       <div className="flex justify-between p-3 w-full md:w-4/5 xl:w-3/5 bg-slate-600 sm:justify-between text-white md:text-lg">
-        <div className="h-1/3 w-1/5">
+        <div className="h-1/3 w-1/5 cursor-pointer" onClick={onClickHandler}>
           <img className="h-8 w-full object-cover" src={logoImg} alt="This is the logo of my blog" />
         </div>
         <div className="flex w-2/5 md:w-2/5 justify-evenly">

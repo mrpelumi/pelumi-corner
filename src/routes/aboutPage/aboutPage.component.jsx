@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import { getDocAbout } from '../../utils/firebase';
 
 import myImg from '../../assets/Pelumi-London.jpg';
@@ -11,6 +10,8 @@ import instagramIcon from '../../assets/social-icons/instagram.png';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/footer.component';
 
+import { Avatar, AvatarFallback, AvatarImage } from '../../components/ui/avatar';
+import { Skeleton } from '../../components/ui/skeleton';
 
 const AboutPage = () => {
   const [about, setAbout] = useState({});
@@ -24,16 +25,17 @@ const AboutPage = () => {
 
   return (
     <div className='flex flex-col p-2 md:w-4/5 xl:w-3/5 gap-5 items-center'>
-    <div className="flex flex-col-reverse shadow items-center rounded-md ">
+    <div className="flex flex-col-reverse shadow items-center rounded-md w-full">
       <div className="w-full flex flex-col gap-3 p-2 pt-6">
         <h3 className='text-3xl font-bold text-gray-800'>About Me</h3>
         <span className='text-lg text-gray-500 text-justify pb-3'>
           {about.description}
         </span>
       </div>
-      <div className='w-full p-2 flex rounded-md'>
-         <img className='h-56 lg:h-80 object-cover object-top w-full rounded-md' src={myImg} alt="About Me Image" />
-      </div>
+      <Avatar className='w-full h-56 lg:h-80 p-2 flex rounded-md'>
+         <AvatarImage className='h-56 lg:h-80 object-cover object-top w-full rounded-md' src={myImg} alt="About Me Image" />
+         <AvatarFallback delayMs={5}><Skeleton className={"h-56 lg:h-80 w-full"} /></AvatarFallback>
+      </Avatar>
     </div>
     {/* Contact Card */}
     <div id="contact" className='flex flex-col w-full bg-slate-800 text-white p-4 items-center rounded-md gap-4'>

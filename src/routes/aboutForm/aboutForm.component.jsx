@@ -2,14 +2,34 @@ import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import { createdocAbout } from "../../utils/firebase";
 
+import { useToast } from "../../hooks/use-toast";
+import { Toaster } from '../../components/ui/toaster';
+import { Loader2 } from 'lucide-react';
 
 const AboutForm = () => {
   const {register, handleSubmit, formState:{errors, isSubmitting}} = useForm();
+  const {toast} = useToast();
 
   const onSubmitHandler = async (data) => {
     const owner = "Pelumi";
     const {description} = data;
-    await createdocAbout({owner, description});
+    await createdocAbout({owner, description})
+    .then(() => {
+      toast({
+        title: "About Post Uploaded Successfully",
+        description: "The about post has been uploaded successfully",
+        variant: "success",
+        duration: 2000
+       })
+    })
+    .catch(() => {
+      toast({
+        title: "About Post Upload Rejected",
+        description: "The about post has been rejected",
+        variant: "destructive",
+        duration: 2000
+       })
+    })
   }
 
   return (
@@ -24,9 +44,10 @@ const AboutForm = () => {
           {errors.description && <p className='text-red-600 text-sm'>{errors.description.message}</p>}
         </div>
         <div>
-          <button disabled={isSubmitting} className="bg-slate-800 p-2 pl-3 pr-3 rounded-md text-white hover:bg-slate-500" type="submit">{isSubmitting ? "Loading..." : "Submit"}</button>
+        <button disabled={isSubmitting} className='bg-slate-600 p-2 pl-5 pr-5 hover:bg-slate-400 rounded-md text-xl text-white' type="submit">{isSubmitting ? (<div className="flex flex-row items-center gap-2"><Loader2 className="animate-spin" />Loading</div >) : "Submit"}</button>
         </div>
       </form>
+      <Toaster />
       <div className='flex p-3 justify-center gap-4 bg-sky-800 rounded-md'>
         <NavLink className="text-white font-semibold text-xl hover:underline hover:underline-offset-4" to={"/admin/blog-form"}>Blog Form</NavLink>
         <NavLink className="text-white font-semibold text-xl hover:underline hover:underline-offset-4" to={"/admin/quote-form"}>Quote Form</NavLink>

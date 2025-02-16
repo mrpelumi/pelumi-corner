@@ -4,16 +4,19 @@ import {useForm} from "react-hook-form";
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { NavLink } from 'react-router-dom';
-
 import { serverTimestamp } from 'firebase/firestore';
 
 import { createdocArticle, fileUpload } from '../../utils/firebase';
-
 import 'ckeditor5/ckeditor5.css';
+
+import { useToast } from "../../hooks/use-toast";
+import { Toaster } from '../../components/ui/toaster';
+import { Loader2 } from 'lucide-react';
 
 const BlogForm = () => {
   const [blogData, setBlogData] = useState('');
   const {register, handleSubmit, formState: {errors, isSubmitting}} = useForm();
+  const {toast} = useToast();
 
   useEffect(() => {
     const auth = getAuth();
@@ -34,8 +37,42 @@ const BlogForm = () => {
    const {content} = blogData;
    const createdAt = serverTimestamp();
    const articleObj = {title, preamble, imgName:fileName, content, createdAt, readMins};
-   await createdocArticle(title, articleObj);
+   
+   await createdocArticle(title, articleObj)
+   .then(() => (
+    toast({
+      title: "Blog Post Uploaded Successfully",
+      description: "The blog post has been uploaded successfully",
+      variant: "success",
+      duration: 2000
+     })
+   ))
+   .catch(() => (
+    toast({
+      title: "Blog Post Upload Rejected",
+      description: "The blog post has been rejected",
+      variant: "destructive",
+      duration: 2000
+     })
+   ))
+
    await fileUpload(fileName, fileProp)
+   .then(() => {
+    toast({
+      title: "File Uploaded Successfully",
+      description: "The file has been uploaded successfully",
+      variant: "success",
+      duration: 2000
+     })
+   })
+   .catch(() => {
+    toast({
+      title: "File Upload Rejected",
+      description: "The file upload has been rejected",
+      variant: "destructive",
+      duration: 2000
+     })
+   })
   }
 
   return (
@@ -82,9 +119,10 @@ const BlogForm = () => {
           }}  />
         </div>
         <div className='flex'>
-          <button disabled={isSubmitting} className='bg-slate-600 p-2 pl-5 pr-5 hover:bg-slate-400 rounded-md text-xl text-white' type="submit">{isSubmitting ? "Loading..." : "Submit"}</button>
+          <button disabled={isSubmitting} className='bg-slate-600 p-2 pl-5 pr-5 hover:bg-slate-400 rounded-md text-xl text-white' type="submit">{isSubmitting ? (<div className="flex flex-row items-center gap-2"><Loader2 className="animate-spin" />Loading</div >) : "Submit"}</button>
         </div>
       </form>
+      <Toaster />
       <div className='flex p-3 justify-center gap-4 bg-sky-800 rounded-md'>
         <NavLink className="text-white font-semibold text-xl hover:underline hover:underline-offset-4" to={"/admin/about-form"}>About Form</NavLink>
         <NavLink className="text-white font-semibold text-xl hover:underline hover:underline-offset-4" to={"/admin/quote-form"}>Quote Form</NavLink>

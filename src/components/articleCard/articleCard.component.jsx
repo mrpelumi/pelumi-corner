@@ -2,8 +2,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getImageUrl } from '../../utils/firebase';
-import catImg from '../../assets/abys-cat.jpg';
-
 
 const ArticleCard = ({item}) => {
   const navigate = useNavigate();

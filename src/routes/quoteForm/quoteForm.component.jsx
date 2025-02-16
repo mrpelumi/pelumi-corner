@@ -2,12 +2,32 @@ import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import { createdocQuote } from "../../utils/firebase";
 
+import { Loader2 } from "lucide-react";
+import { useToast } from "../../hooks/use-toast";
+import { Toaster } from "../../components/ui/toaster";
 
 const QuoteForm = () => {
   const {register, handleSubmit, formState:{errors, isSubmitting}} = useForm();
+  const {toast} = useToast();
 
   const onSubmitHandler = async (data) => {
-    return await createdocQuote(data);
+    await createdocQuote(data)
+    .then(() => {
+      toast({
+        title: "Quote Uploaded Successfully",
+        description: "Quote has been uploaded successfully",
+        variant: "success",
+        duration: 2000
+       })
+    })
+    .catch(() => {
+      toast({
+        title: "Quote Upload Rejected",
+        description: "The quote has been rejected",
+        variant: "destructive",
+        duration: 2000
+       })
+    })
   }
 
   return (
@@ -27,9 +47,10 @@ const QuoteForm = () => {
           {errors.quote && <p className='text-red-600 text-sm'>{errors.quote.message}</p>}
         </div>
         <div>
-          <button disabled={isSubmitting} className="bg-slate-800 p-2 pl-3 pr-3 rounded-md text-white hover:bg-slate-500" type="submit">{isSubmitting ? "Loading..." : "Submit"}</button>
+          <button disabled={isSubmitting} className="bg-slate-800 p-2 pl-3 pr-3 rounded-md text-white hover:bg-slate-500" type="submit">{isSubmitting ? (<div className="flex flex-row items-center gap-2"><Loader2 className="animate-spin" />Loading</div >) : "Submit"}</button>
         </div>
       </form>
+      <Toaster />
       <div className='flex p-3 justify-center gap-4 bg-sky-800 rounded-md'>
         <NavLink className="text-white font-semibold text-xl hover:underline hover:underline-offset-4" to={"/admin/about-form"}>About Form</NavLink>
         <NavLink className="text-white font-semibold text-xl hover:underline hover:underline-offset-4" to={"/admin/blog-form"}>Blog Form</NavLink>
