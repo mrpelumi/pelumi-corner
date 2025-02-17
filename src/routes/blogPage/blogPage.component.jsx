@@ -14,7 +14,6 @@ import ContactCard from '../../components/contactCard/contactCard.component';
 import Footer from '../../components/footer/footer.component';
 import QuoteCard  from '../../components/quoteCard/quoteCard.component';
 
-import { Avatar, AvatarFallback, AvatarImage } from '../../components/ui/avatar';
 import { Skeleton } from '../../components/ui/skeleton';
 
 // working with data

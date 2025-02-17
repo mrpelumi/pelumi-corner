@@ -32,8 +32,8 @@ const AboutPage = () => {
           {about.description}
         </span>
       </div>
-      <Avatar className='w-full h-56 lg:h-80 p-2 flex rounded-md'>
-         <AvatarImage className='h-56 lg:h-80 object-cover object-top w-full rounded-md' src={myImg} alt="About Me Image" />
+      <Avatar className='w-full h-56 lg:h-80 p-2 flex'>
+         <AvatarImage className='h-56 lg:h-80 object-cover object-top w-full' src={myImg} alt="About Me Image" />
          <AvatarFallback delayMs={5}><Skeleton className={"h-56 lg:h-80 w-full"} /></AvatarFallback>
       </Avatar>
     </div>
